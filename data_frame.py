@@ -4,7 +4,7 @@ from streamlit_gsheets import GSheetsConnection
 
 
 # establish connection to Google Sheets
-user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection)
+user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection, ttl=10)
 business_data = st.connection("gsheets_businessData", type=GSheetsConnection)
 reviews_data = st.connection("gsheets_reviewsData", type=GSheetsConnection)
 user_data = st.connection("gsheets_userData", type=GSheetsConnection)
@@ -21,12 +21,14 @@ def ReviewsDataFrame():
     return df
 
 def UsersDataFrame():
+    
     # df = pd.read_csv("yelp_user_data_cleaned.csv")
     df = user_data.read(worksheet="user")
     return df
 
 
 def UserProfiles():
+    
 
     # fetch existing data
     df = user_profiles.read(worksheet="random_user_profiles_data")
