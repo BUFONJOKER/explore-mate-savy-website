@@ -4,6 +4,7 @@ from streamlit_gsheets import GSheetsConnection
 
 
 # establish connection to Google Sheets
+user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection)
 business_data = st.connection("gsheets_businessData", type=GSheetsConnection)
 reviews_data = st.connection("gsheets_reviewsData", type=GSheetsConnection)
 user_data = st.connection("gsheets_userData", type=GSheetsConnection)
@@ -28,29 +29,28 @@ def UsersDataFrame():
 
 def UserProfiles():
     
-    user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection, ttl=0)
+    
 
     # fetch existing data
     df = user_profiles.read(worksheet="random_user_profiles_data")
     # df = pd.read_csv("random_user_profiles_data.csv")
+    st.cache_data.clear()
     return df
 
 def CreateProfile(new_user):
-    user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection, ttl=0)
 
     updated = new_user
     user_profiles.update(worksheet="random_user_profiles_data", data=updated)
     # updated.to_csv("random_user_profiles_data.csv", index=False)
-    
+    st.cache_data.clear()
     return True
 
 def UpdateProfile(updated_user):
-    user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection, ttl=0)
 
     updated = updated_user
     # updated.to_csv("random_user_profiles_data.csv", index=False)
     user_profiles.update(worksheet="random_user_profiles_data", data=updated)
-    
+    st.cache_data.clear()
     return True
 
 def UpdateBusiness(updated_business):
@@ -62,12 +62,14 @@ def UpdateBusiness(updated_business):
 
 
 def DeleteProfile(email):
-    user_profiles = st.connection("gsheets_userProfiles", type=GSheetsConnection, ttl=0)
 
     df = user_profiles.read(worksheet="random_user_profiles_data")
     df = df[df['Email'] != email]
     # df.to_csv("random_user_profiles_data.csv", index=False)
 
     user_profiles.update(worksheet="random_user_profiles_data", data=df)
+    
+    st.cache_data.clear()
+    
     return True
     
