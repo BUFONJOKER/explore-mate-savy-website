@@ -1,0 +1,7 @@
+streamlit==1.41.1
+folium==0.19.3
+streamlit-folium==0.24.0
+pandas==2.2.0
+cryptography==44.0.0
+streamlit-gsheets==0.1.0
+scikit-learn==1.4.1.post1
