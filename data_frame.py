@@ -29,12 +29,9 @@ def UsersDataFrame():
 
 def UserProfiles():
     
-    
-
     # fetch existing data
     df = user_profiles.read(worksheet="random_user_profiles_data")
     # df = pd.read_csv("random_user_profiles_data.csv")
-    st.cache_data.clear()
     return df
 
 def CreateProfile(new_user):
@@ -42,7 +39,6 @@ def CreateProfile(new_user):
     updated = new_user
     user_profiles.update(worksheet="random_user_profiles_data", data=updated)
     # updated.to_csv("random_user_profiles_data.csv", index=False)
-    st.cache_data.clear()
     return True
 
 def UpdateProfile(updated_user):
