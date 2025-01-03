@@ -4,7 +4,7 @@ from crypto_utils import encrypt_password, decrypt_password
 
 
 
-
+st.cache_data.clear()
 df = UserProfiles()
 
 # Longin Page 
